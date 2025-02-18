@@ -6,7 +6,9 @@ const io = require('socket.io')(http, {
         methods: ["GET", "POST"]
     }
 })
-)
+app.get("/", (req, res) => {  
+    console.log("Hello World")
+})
 
 io.on('connection', (socket) => {
     console.log("a user connected")
