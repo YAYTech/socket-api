@@ -1,11 +1,19 @@
 const app = require('express')()
+const cors = require('cors')
 const http = require('http').Server(app)
+require('dotenv').config()
 const io = require('socket.io')(http, {
     cors: {
         origin: "*",
         methods: ["GET", "POST"]
     }
 })
+
+app.use(cors({
+    origin: '*', // İzin verilen domain
+    methods: ['GET', 'POST'], // İzin verilen HTTP metodları
+}));
+
 app.get("/", (req, res) => {  
     console.log("Hello World")
 })
@@ -18,6 +26,8 @@ io.on('connection', (socket) => {
     })
 })
 
-http.listen(3000, () => {
-    console.log("server listening on 3000")
+const PORT = process.env.PORT || 3000
+
+http.listen(PORT, () => {
+    console.log(`server listening on ${PORT}`)
 })
